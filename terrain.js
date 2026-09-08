@@ -30,7 +30,7 @@ export function initTerrain(canvas){
       for(let i=9;i<33;i++){const x=(i/count*2-1)*extent,z=(24/count*2-1)*extent;const pts=[project([x,heightAt(x,z),z]),project([x+extent*2/count,heightAt(x+extent*2/count,z),z]),project([x+extent*2/count,-.65,z]),project([x,-.65,z])];faces.push({pts,depth:pts.reduce((s,p)=>s+p[2],0)/4,fill:i>17&&i<28?'#bf9354':'#6a7976',stroke:'#c9b88233'});}
     }
     faces.sort((a,b)=>b.depth-a.depth).forEach(f=>polygon(f.pts,f.fill,f.stroke));
-    const pin=project([.1,heightAt(.1,.1)+.02,.1]);context.strokeStyle='#e0c38b';context.lineWidth=1;context.beginPath();context.arc(pin[0],pin[1],5,0,Math.PI*2);context.moveTo(pin[0],pin[1]-6);context.lineTo(pin[0],pin[1]-34);context.stroke();context.fillStyle='#ead8b1';context.font='9px "Hanken Grotesk",sans-serif';context.fillText(mode==='section'?'CONCEPTUAL SYSTEM':'SURFACE EXPRESSION',pin[0]+8,pin[1]-29);
+    const pin=project([.1,heightAt(.1,.1)+.02,.1]);context.strokeStyle='#e0c38b';context.lineWidth=1;context.beginPath();context.arc(pin[0],pin[1],5,0,Math.PI*2);context.moveTo(pin[0],pin[1]-6);context.lineTo(pin[0],pin[1]-34);context.stroke();context.fillStyle='#ead8b1';context.font='9px "Raleway",sans-serif';context.fillText(mode==='section'?'CONCEPTUAL SYSTEM':'SURFACE EXPRESSION',pin[0]+8,pin[1]-29);
   }
   function requestDraw(){if(!frame)frame=requestAnimationFrame(draw);}
   const resize=new ResizeObserver(()=>{const r=canvas.getBoundingClientRect();width=r.width;height=r.height;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;context.setTransform(dpr,0,0,dpr,0,0);requestDraw();});resize.observe(canvas);
