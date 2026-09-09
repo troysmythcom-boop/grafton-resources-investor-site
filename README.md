@@ -14,16 +14,22 @@ npm start
 
 For development, use `npm run dev`. The production commands work in Windows PowerShell as well as macOS/Linux. The development optimizer may require normal filesystem permissions outside a restricted agent sandbox.
 
+## Page routes
+
+`/company`, `/company/management`, `/company/directory`, `/company/governance`, `/projects`, `/projects/alaska`, `/projects/poseidon`, `/projects/jabali`, `/projects/caldera`, `/geology`, `/investors`, `/investors/stock`, `/investors/share-structure`, `/investors/presentations`, `/news`, `/contact`, `/privacy`, `/disclaimer`.
+
+Project order: Alaska → Poseidon → Jabalí → Caldera. Headshots are omitted. A globe opens the language chooser; selection persists across pages. The map fits its complete drawing at first load and reset, including on mobile. The geological model shows continuous recharge and upflow paths, connected gold-bearing branches, a blind vein ending beneath the surface and projected selectable labels.
+
 ## Included
 
 - The wireframe’s hero, signup, introduction/news, four project cards, epithermal model, strategy and project-map sequence. Investor information and leadership follow those sections.
-- Brand Navy `#1F477D` and Alpine Sky `#DDF0F7`. The preferred heading face is Avenir Next LT Pro; Aptos is supported. Hanken Grotesk is a web fallback because licensed brand font files were not supplied. The mountain wordmark is a vector interpretation and should be replaced with approved logo artwork before publication.
+- Brand Navy `#1F477D` and Alpine Sky `#DDF0F7`. The preferred heading face is Avenir Next LT Pro; Aptos is supported. Raleway, the guide’s secondary typeface, is the web fallback because licensed heading font files were not supplied. The unmodified standard logo is rendered directly from page 2 of the August 2026 guide, with its proportions preserved and white clear space. The same artwork replaces the older mark on the map.
 - Responsive English, Spanish and Simplified Chinese interface and page copy. Official documents, original map annotations and no-key source excerpts retain their original English wording and are labelled accordingly. These are not certified translations.
-- Actual Three.js wireframe terrain, an interactive geological cutaway, material highlighting, reset, pan/zoom on the original map, Motion section entrances, scroll progress and section navigation. Reduced-motion preferences are honoured. No stock photos or image generation are used; image slots contain outline studies and art direction.
+- Actual Three.js wireframe terrain, an interactive geological cutaway, material highlighting, reset, pan/zoom on the original map, Motion section entrances, a scroll-driven drill-stem progress line. Reduced-motion preferences are honoured. No stock photos or image generation are used; image slots contain outline studies and art direction.
 - The original vector map from the Claude artifact, preserved in `src/map-data.js`. It is stored compressed and decoded locally; no external mapping API is required. Its ownership annotations are historical wireframe content, not independently confirmed current title information.
-- TradingView ticker and chart integrations for **CSE:GFT**, **OANDA:XAUUSD** and **OANDA:XCUUSD**. All three tickers were observed returning provider quotes. GFT’s available embedded chart is **end-of-day**, not a licensed real-time equity feed. Copper is explicitly labelled **CFD**. Data availability and delays are controlled by the provider; no prices or chart series are fabricated.
+- TradingView ticker and chart integrations for **CSE:GFT**, **OTC:GFTFF**, **FWB:K8L0**, **OANDA:XAUUSD** and **OANDA:XCUUSD**. All five tickers were observed returning provider quotes. Ticker hover does not interrupt the tape. GFT’s available embedded chart is **end-of-day**, not a licensed real-time equity feed. Copper is explicitly labelled **CFD**. Data availability and delays are controlled by the provider; no prices or chart series are fabricated.
 - Resizable investor assistant with the GFT chart at the top, source-linked answers, and server-side AI integration. Without an AI key it returns relevant company excerpts and declines unsupported questions. No browser-visible API secrets.
-- All ten original company website information pages are available through the menu as source document views. A dated snapshot preserves access when the source website is unavailable. Source links and published presentation/press-release downloads remain attached to the original documents.
+- All ten original company website information pages are available through the menu as separate, linked pages with translated editorial content and complete original-language source archives. A dated snapshot preserves access when the source website is unavailable. Source links and published presentation/press-release downloads remain attached to the original documents.
 
 ## Connections to supply
 
@@ -38,7 +44,7 @@ Copy `.env.example` to `.env`, enter the values on the server, and restart:
 | `PORT` | Defaults to `5173`. |
 | `HOST` | Defaults to `127.0.0.1` for local preview. A hosting platform may require `0.0.0.0`. |
 
-The subscription form validates email and consent. It deliberately reports that signup is not connected until a provider is configured; it does not claim to save subscribers. Configure double opt-in and return a successful HTTP status only after your email provider accepts the request. The real AI and email-provider round trips cannot be tested without those credentials. This delivery is a local preview, not a public deployment.
+The subscription form validates email and consent. It deliberately reports that signup is not connected until a provider is configured; it does not claim to save subscribers. Configure double opt-in and return a successful HTTP status only after your email provider accepts the request. The real AI and email-provider round trips cannot be tested without those credentials. The connected GitHub repository automatically deploys to the Grafton Investor Website Railway project. `railway.toml` defines the build, start and health-check commands.
 
 ## Content decisions and source differences
 

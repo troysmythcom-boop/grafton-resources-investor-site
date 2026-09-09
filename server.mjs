@@ -13,7 +13,7 @@ const port=Number(process.env.PORT||5173);
 const production=process.env.NODE_ENV==='production'||process.argv.includes('--production');
 const vite=production?null:await (await import('vite')).createServer({root,server:{middlewareMode:true},appType:'spa'});
 const cache=new Map(Object.entries(snapshot).map(([id,data])=>[id,{time:Date.now(),data}])),limits=new Map();
-const corpus=[...sources.map(s=>({...s,text:s.id==='shares'?s.text:(snapshot[s.id]?.blocks?.join('\n')||s.text)})),...disclosures,...['governance','privacy','disclaimer'].map(id=>({id,title:snapshot[id].title,url:snapshot[id].url,text:snapshot[id].blocks.join('\n')}))];
+const corpus=[...sources.map(s=>({...s,text:['shares','team'].includes(s.id)?s.text:(snapshot[s.id]?.blocks?.join('\n')||s.text)})),...disclosures,...['governance','privacy','disclaimer'].map(id=>({id,title:snapshot[id].title,url:snapshot[id].url,text:snapshot[id].blocks.join('\n')}))];
 // ponytail: per-process limits; use a shared rate-limit store when running multiple instances.
 setInterval(()=>{for(const [k,v] of limits)if(v.until<Date.now())limits.delete(k)},60000).unref();
 const send=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
@@ -59,6 +59,6 @@ const server=http.createServer(async(req,res)=>{
   }catch(e){if(e instanceof SyntaxError)return send(res,400,{error:'Invalid JSON'});if(e.message==='Request too large')return send(res,413,{error:'Request too large'});return send(res,503,{error:'Service unavailable. Please try again or contact investor relations.'});}
  }
  if(vite)return vite.middlewares(req,res);
- try{const safe=path.resolve(root,'dist','.'+decodeURIComponent(url.pathname));if(!safe.startsWith(path.join(root,'dist')+path.sep)&&safe!==path.join(root,'dist')){res.writeHead(403);return res.end();}let file=safe;try{if(!(await fs.stat(file)).isFile())file=path.join(root,'dist/index.html');}catch{file=path.join(root,'dist/index.html');}const ext=path.extname(file);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.json':'application/json'})[ext]||'application/octet-stream');res.end(await fs.readFile(file));}catch{res.writeHead(404);res.end('Not found');}
+ try{const safe=path.resolve(root,'dist','.'+decodeURIComponent(url.pathname));if(!safe.startsWith(path.join(root,'dist')+path.sep)&&safe!==path.join(root,'dist')){res.writeHead(403);return res.end();}let file=safe;try{if(!(await fs.stat(file)).isFile())file=path.join(root,'dist/index.html');}catch{file=path.join(root,'dist/index.html');}const ext=path.extname(file);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.json':'application/json'})[ext]||'application/octet-stream');res.end(await fs.readFile(file));}catch{res.writeHead(404);res.end('Not found');}
 });
 server.listen(port,process.env.HOST||'127.0.0.1',()=>console.log(`Grafton website ready at http://localhost:${port}`));
