@@ -1,0 +1,9 @@
+export const calderaRelease='https://thenewswire.com/press-releases/1A0vFwaG4-grafton-resources-introduces-the-new-silver-copper-gold-antimony-caldera-project-in-the-ag-cu-au-sb-pedernal-district-valparaiso-chile.html';
+export const acquisitionRelease='https://www.thenewswire.com/press-releases/1Bz4FqgxY-grafton-resources-announces-letter-of-intent-for-acquisition-of-two-gold-projects-in-chile.html';
+export const filings='https://thecse.com/listings/grafton-resources-inc/sedar-filings/';
+export const exchange='https://thecse.com/listings/grafton-resources-inc/';
+export const disclosures=[
+ {id:'caldera',title:'Caldera project announcement · 22 July 2026',url:calderaRelease,text:'Grafton announced Caldera in the Pedernal district, Valparaiso, Chile, on 22 July 2026. It includes 2,100 hectares of newly staked concessions. Historical sample results are preliminary, lack formal QA/QC and have not been sufficiently validated. The Silver One acquisition option remains subject to CSE approval. This announcement does not establish a mineral resource.'},
+ {id:'acquisition',title:'Non-binding Newmont LOI · 19 May 2026',url:acquisitionRelease,text:'On 19 May 2026 Grafton announced a non-binding letter of intent with Newmont USA Limited concerning a proposed acquisition of two gold exploration projects in Chile. Completion is subject to due diligence, definitive documentation and approvals. The release does not establish completed ownership or name these as Poseidon and Jabali.'},
+ {id:'exchange',title:'Grafton issuer profile · CSE',url:exchange,text:'The CSE issuer profile retrieved 9 September 2026 lists Grafton Resources Inc., symbol GFT, currency CAD, 19,973,856 issued and outstanding shares and 7,017,368 reserved for issuance. These differ from the older share figures on the company website. The CSE lists Endeavor Trust Corporation as transfer agent.'}
+];

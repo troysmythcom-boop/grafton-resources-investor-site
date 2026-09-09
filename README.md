@@ -1,67 +1,67 @@
-# Grafton Resources — website redesign
+# Grafton Resources website
 
-A six-page investor website using Grafton's August 2026 brand identity: navy, orange, supporting teal and alpine colours, and the actual logo extracted from the supplied guidelines. The client's Claude reference informed the corporate navigation, news desk, update request strip, project feature, map and educational geology sections.
+A React website using Motion and Three.js, based on the supplied Claude wireframe. The local preview runs at **http://localhost:5173**.
 
-## Run locally
+## Run
 
-Run `npm start` in this folder, then open **http://localhost:4173**. Node.js 20 or newer is required. No installation or build step is needed.
+Requires Node.js 22.12 or newer.
 
-Run `npm test` for the route, asset, capital reconciliation and terrain checks.
+```sh
+npm install
+npm run build
+npm start
+```
 
-Pages: Home, Projects, Investors, Company, News & resources, Contact.
+For development, use `npm run dev`. The production commands work in Windows PowerShell as well as macOS/Linux. The development optimizer may require normal filesystem permissions outside a restricted agent sandbox.
 
-## Deploy on Railway
+## Included
 
-Push the contents of this folder to the repository root, then create a Railway service from that repository. Railway detects the Node app and uses `railway.toml` to run `npm start`, expose the app on Railway's assigned `PORT`, and check `/health` after deployment. No build command or environment variables are required.
+- The wireframe’s hero, signup, introduction/news, four project cards, epithermal model, strategy and project-map sequence. Investor information and leadership follow those sections.
+- Brand Navy `#1F477D` and Alpine Sky `#DDF0F7`. The preferred heading face is Avenir Next LT Pro; Aptos is supported. Hanken Grotesk is a web fallback because licensed brand font files were not supplied. The mountain wordmark is a vector interpretation and should be replaced with approved logo artwork before publication.
+- Responsive English, Spanish and Simplified Chinese interface and page copy. Official documents, original map annotations and no-key source excerpts retain their original English wording and are labelled accordingly. These are not certified translations.
+- Actual Three.js wireframe terrain, an interactive geological cutaway, material highlighting, reset, pan/zoom on the original map, Motion section entrances, scroll progress and section navigation. Reduced-motion preferences are honoured. No stock photos or image generation are used; image slots contain outline studies and art direction.
+- The original vector map from the Claude artifact, preserved in `src/map-data.js`. It is stored compressed and decoded locally; no external mapping API is required. Its ownership annotations are historical wireframe content, not independently confirmed current title information.
+- TradingView ticker and chart integrations for **CSE:GFT**, **OANDA:XAUUSD** and **OANDA:XCUUSD**. All three tickers were observed returning provider quotes. GFT’s available embedded chart is **end-of-day**, not a licensed real-time equity feed. Copper is explicitly labelled **CFD**. Data availability and delays are controlled by the provider; no prices or chart series are fabricated.
+- Resizable investor assistant with the GFT chart at the top, source-linked answers, and server-side AI integration. Without an AI key it returns relevant company excerpts and declines unsupported questions. No browser-visible API secrets.
+- All ten original company website information pages are available through the menu as source document views. A dated snapshot preserves access when the source website is unavailable. Source links and published presentation/press-release downloads remain attached to the original documents.
 
-After Railway assigns a domain, set it as the public domain and use it when configuring any social preview metadata. The site has no database, secrets, or persistent storage requirements.
+## Connections to supply
 
-## Working interactions
+Copy `.env.example` to `.env`, enter the values on the server, and restart:
 
-- Responsive navigation with keyboard access.
-- Dropdown corporate/project/investor navigation and mobile menu.
-- Leaflet map with OpenStreetMap tiles, keyboard/touch pan and zoom, locality popup and Chile/regional presets. The Alicahue locality marker uses OpenStreetMap node 214202900; it is not a surveyed concession position.
-- Geological model: mouse drag, horizontal touch gestures, arrow keys, zoom, reset, terrain/wireframe/subsurface modes. Respects reduced motion.
-- TradingView ticker and selectable Grafton, copper and gold charts.
-- Capital chart category selection and filtered document library.
-- Project overview, geology and location tabs, including keyboard navigation.
-- Expandable investor FAQs and a source-credit dialog.
-- Validated contact form that prepares an email draft for the visitor to review and send.
-- An email-update request form prepares an explicit request in the visitor's email app. It does not silently subscribe or store visitors.
+| Setting | Purpose |
+| --- | --- |
+| `OPENAI_API_KEY` | Enables generated answers in the selected language. Until configured, the assistant uses English source excerpts. |
+| `OPENAI_MODEL` | Defaults to `gpt-4.1-mini`; set a model available to your account. |
+| `SUBSCRIBE_WEBHOOK_URL` | Your email platform’s server endpoint. Receives `{ "email": "…", "consent": true }`. |
+| `SUBSCRIBE_WEBHOOK_TOKEN` | Optional bearer token for that endpoint. |
+| `PORT` | Defaults to `5173`. |
+| `HOST` | Defaults to `127.0.0.1` for local preview. A hosting platform may require `0.0.0.0`. |
 
-## Data and publication notes
+The subscription form validates email and consent. It deliberately reports that signup is not connected until a provider is configured; it does not claim to save subscribers. Configure double opt-in and return a successful HTTP status only after your email provider accepts the request. The real AI and email-provider round trips cannot be tested without those credentials. This delivery is a local preview, not a public deployment.
 
-This is an independently hosted redesign for client review. The existing graftonresources.com website is unaffected.
+## Content decisions and source differences
 
-GFT's free TradingView widget supplies **end-of-day** CSE data, not a licensed real-time equity feed. Metals prices update as supplied by the provider; copper is an indicative CFD quotation. Real-time CSE data would require an appropriate licensed feed. Widgets and Google Fonts need internet access; the website retains local assets and fallback fonts.
+The supplied artifact explicitly calls its project pages placeholders. Caldera could be verified against Grafton’s 22 July 2026 company release. Alaska, Poseidon and Jabalí retain their requested layout positions and map views, with a clear note that current technical details need confirmation. The May Newmont LOI is non-binding; it is not presented as completed ownership.
 
-The capital structure reproduces the undated figures on the company website: 16,860,901 issued shares, 7,179,568 warrants and 700,000 options, totalling 24,740,469 fully diluted. It is labelled as a published snapshot and must be checked against current filings before public launch.
+The older company site reports 16,860,901 issued shares. The CSE profile retrieved on 9 September 2026 reports **19,973,856 issued and outstanding** and **7,017,368 reserved for issuance**. The main investor panel uses the CSE figures; the historical website figures remain in the original source document. The source website’s directory, legal wording and some management descriptions also contain older or inconsistent information. Original documents are preserved with source links rather than silently rewritten as current legal statements.
 
-No fabricated stock prices, drill results, grades, project sizes, resources, production forecasts or investor returns are displayed. The terrain is synthetic, educational geometry, not a survey or resource model. Both generated images are illustrative; the mineral is not a project sample.
+The chatbot uses only the curated company corpus in `src/content.js`, `company-snapshot.mjs` and company-issued disclosures in `src/disclosures.js`. The USGS geology reference and other mining-company design references are excluded from the chatbot. Topic retrieval and rate limiting are intentionally simple for the initial corpus; a larger document collection or multiple server instances should use ranked passage retrieval and a shared rate-limit store. The AI prompt restricts answers to supplied sources, but generated answers should still be evaluated before public launch.
 
-Contact messages are not stored or automatically sent. A production contact inbox or newsletter service can replace the explicit email-draft workflow once the company provides its chosen service. No analytics or tracking code has been added; embedded market widgets and remotely hosted fonts use third-party services.
+## Verified
 
-Before publication, the company should confirm the current legal entity name, management, share counts and technical disclosures. The original website uses several company-name variants, so this design consistently uses the Grafton Resources brand. Configure the public domain and social-sharing metadata when deploying.
-
-For static hosting, serve the `index.html` fallback for `/projects`, `/investors`, `/company`, `/news` and `/contact`, and publish `styles.css`, `app.js`, `terrain.js` and the `assets` directory. Railway runs the included server on its assigned port and checks /health.
+`npm run build` succeeds. `npm test` passes three runnable checks covering retrieval/input boundaries and the production server’s ten source pages, grounded answers, unsupported questions, unknown routes and disconnected subscription response. Browser checks covered desktop and 390px mobile layout, Spanish/Chinese switching, live provider quotes, GFT charts, geological layer selection, map project focus, assistant answers and source links. No application console errors were found during the reviewed browser session.
 
 ## Sources
 
-Accessed 8 September 2026:
+- [Required Claude wireframe](https://claude.ai/code/artifact/8c3f08dc-813c-4659-ac55-967f1a7dc48b)
+- [Grafton Resources website](https://www.graftonresources.com/)
+- [Grafton CSE issuer profile](https://thecse.com/listings/grafton-resources-inc/)
+- [Grafton financial filings](https://thecse.com/listings/grafton-resources-inc/sedar-filings/)
+- [Caldera company announcement, 22 July 2026](https://thenewswire.com/press-releases/1A0vFwaG4-grafton-resources-introduces-the-new-silver-copper-gold-antimony-caldera-project-in-the-ag-cu-au-sb-pedernal-district-valparaiso-chile.html)
+- [Newmont LOI company announcement, 19 May 2026](https://www.thenewswire.com/press-releases/1Bz4FqgxY-grafton-resources-announces-letter-of-intent-for-acquisition-of-two-gold-projects-in-chile.html)
+- [USGS epithermal deposit reference](https://www.usgs.gov/publications/descriptive-models-epithermal-gold-silver-deposits)
+- [TradingView widget documentation](https://www.tradingview.com/widget-docs/widgets/tickers/)
+- [Motion scroll documentation](https://motion.dev/docs/react-use-scroll)
 
-- [Original website](https://www.graftonresources.com/)
-- [About and Alicahue](https://www.graftonresources.com/about-1)
-- [Leadership](https://www.graftonresources.com/managment)
-- [Share structure](https://www.graftonresources.com/share-structure)
-- [Corporate directory](https://www.graftonresources.com/privacy-policy-1)
-- [Presentation page](https://www.graftonresources.com/group-events)
-- [2025 news archive](https://www.graftonresources.com/2025)
-- [Governance](https://www.graftonresources.com/governance-1)
-- [Privacy policy](https://www.graftonresources.com/management-1)
-- [Disclaimer](https://www.graftonresources.com/management-1-1)
-- [TradingView GFT](https://www.tradingview.com/symbols/CSE-GFT/)
-- [TradingView copper](https://www.tradingview.com/symbols/XCUUSD/?exchange=OANDA)
-
-The presentation and announcement buttons link to documents provided by the original website. Company logo: extracted from Grafton Resources — Brand Guidelines, August 2026. Landscape and mineral artwork: generated for this design. Typography uses Avenir Next LT Pro and Aptos when installed, with Raleway served by Google Fonts as the available brand-family fallback; licensed font binaries were not supplied.
-
-The reference artifact explicitly labels its Caldera, Alaska, Poseidon and Jabalí profiles as placeholders. Those projects, unverified news items and technical claims were not published as established company facts. The map can be extended when approved project documents and coordinates are supplied.
+The supplied August 2026 brand guide provided the palette and preferred typography. NGEx and Meridian were used as reference points for mining/investor navigation, not as templates. The supplied Fitzroy assistant screenshot informed the chart-first assistant arrangement; the Railway reference itself was unavailable through the research fetch.
