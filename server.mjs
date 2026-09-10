@@ -19,6 +19,7 @@ setInterval(()=>{for(const [k,v] of limits)if(v.until<Date.now())limits.delete(k
 const send=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 async function body(req){let data='';for await(const c of req){data+=c;if(data.length>12000)throw new Error('Request too large');}return JSON.parse(data);}
 async function companyPage(id){
+ if(id==='shares'){const s=sources.find(s=>s.id===id);return {title:s.title,url:s.url,blocks:[s.text],links:[],asOf:'2026-09'};}
  const page=officialPages.find(p=>p[0]===id);if(!page)return null;
  if(cache.has(id)&&Date.now()-cache.get(id).time<3600000)return cache.get(id).data;
  const url='https://www.graftonresources.com/'+page[4];
