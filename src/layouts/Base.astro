@@ -2,14 +2,22 @@
 import '../style.css';
 import '../pages.css';
 const {title = 'Grafton Resources'} = Astro.props;
+// Per-page SEO edited via the Aurox portal (src/content/seo.json, keyed by route).
+// Optional: if the file doesn't exist yet, glob returns {} and the defaults hold.
+const seoMods = import.meta.glob('../content/seo.json', {eager: true});
+const seoMap = (Object.values(seoMods)[0] as {default?: Record<string, {title?: string; description?: string}>} | undefined)?.default ?? {};
+const route = Astro.url.pathname.replace(/\/$/, '') || '/';
+const seo = seoMap[route] ?? {};
+const pageTitle = seo.title || title;
+const pageDesc = seo.description || 'Grafton Resources investor information';
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Grafton Resources investor information" />
-    <title>{title}</title>
+    <meta name="description" content={pageDesc} />
+    <title>{pageTitle}</title>
   </head>
   <body><slot />
     <!-- Aurox editor selection bridge (inert unless loaded in the editor with ?wf-edit=1) -->
