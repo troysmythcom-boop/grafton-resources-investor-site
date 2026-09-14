@@ -1,6 +1,6 @@
 {
   "version": 1,
   "pages": [
-    { "title": "Home", "route": "/", "files": ["src/content/home.json"] }
+    { "title": "Home", "route": "/", "files": ["src/content/home.json", "src/content/about.json"] }
   ]
 }

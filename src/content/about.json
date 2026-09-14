@@ -1,0 +1,15 @@
+{
+  "eyebrow": { "en": "WELCOME TO GRAFTON RESOURCES", "es": "BIENVENIDO A GRAFTON RESOURCES", "zh": "欢迎了解 GRAFTON RESOURCES" },
+  "heading": { "en": "The right ground.", "es": "El terreno adecuado.", "zh": "选对土地。" },
+  "headingAccent": { "en": "The right approach.", "es": "El enfoque adecuado.", "zh": "采取正确方法。" },
+  "lead": {
+    "en": "A Vancouver-based exploration company with a clear focus: discovering and advancing copper and gold opportunities in Chile and Argentina.",
+    "es": "Una empresa de exploración con sede en Vancouver y un objetivo claro: descubrir y desarrollar oportunidades de cobre y oro en Chile y Argentina.",
+    "zh": "一家总部位于温哥华的勘探公司，专注于发现并推进智利和阿根廷的铜金资源机会。"
+  },
+  "body": {
+    "en": "We bring Chilean expertise and a rigorous project filter to a landscape rich in potential. Every opportunity must earn its place in the portfolio.",
+    "es": "Combinamos experiencia chilena con una evaluación rigurosa en un territorio de gran potencial. Cada oportunidad debe justificar su lugar en la cartera.",
+    "zh": "我们将智利本地经验与严格的项目筛选结合，探索潜力丰富的地区。每个机会都必须经得起筛选。"
+  }
+}
