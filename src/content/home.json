@@ -1,0 +1,11 @@
+{
+  "hero": {
+    "title": { "en": "Gold. Silver.", "es": "Oro. Plata.", "zh": "金。银。" },
+    "titleAccent": { "en": "Find. Repeat.", "es": "Descubrir. Repetir.", "zh": "发现。再进。" },
+    "lead": {
+      "en": "Exciting new exploration projects in Chile. Good grade. Simple metallurgy. Infrastructure advantages.",
+      "es": "Nuevos proyectos de exploración en Chile. Buena ley. Metalurgia sencilla. Ventajas de infraestructura.",
+      "zh": "探索智利新项目。优良品位、简明冶金路线与基础设施优势。"
+    }
+  }
+}
