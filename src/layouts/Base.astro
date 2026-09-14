@@ -1,0 +1,15 @@
+---
+import '../style.css';
+import '../pages.css';
+const {title = 'Grafton Resources'} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Grafton Resources investor information" />
+    <title>{title}</title>
+  </head>
+  <body><slot /></body>
+</html>

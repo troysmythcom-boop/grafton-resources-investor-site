@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
 test('production server serves pages, approved sources, grounded answers and honest disconnected forms',async()=>{
- const child=spawn(process.execPath,['server.mjs','--production'],{cwd:new URL('..',import.meta.url),env:{...process.env,PORT:'5197',OPENAI_API_KEY:'',SUBSCRIBE_WEBHOOK_URL:''},stdio:['ignore','pipe','pipe']});
- try{await Promise.race([once(child.stdout,'data'),new Promise((_,reject)=>{const timer=setTimeout(()=>reject(Error('Server startup timed out')),8000);timer.unref();})]);
+ const child=spawn(process.execPath,['dist/server/entry.mjs'],{cwd:new URL('..',import.meta.url),env:{...process.env,PORT:'5197',HOST:'127.0.0.1',OPENAI_API_KEY:'',SUBSCRIBE_WEBHOOK_URL:''},stdio:['ignore','pipe','pipe']});
+ try{await new Promise(resolve=>setTimeout(resolve,200));
  const base='http://127.0.0.1:5197';
  assert.equal((await fetch(base)).status,200);
  for(const route of ['/company','/company/management','/company/directory','/company/governance','/projects','/projects/alaska','/projects/poseidon','/projects/jabali','/projects/caldera','/geology','/investors','/investors/stock','/investors/share-structure','/investors/presentations','/news','/contact','/privacy','/disclaimer']){const r=await fetch(base+route);assert.equal(r.status,200,route);assert.match(await r.text(),/<div id="root">/);}
@@ -16,5 +16,5 @@ test('production server serves pages, approved sources, grounded answers and hon
  assert.equal((await post('/api/chat',{question:''})).status,400);
  assert.equal((await post('/api/subscribe',{email:'investor@example.com',consent:true})).status,503);
  assert.equal((await fetch(base+'/api/company/not-allowed')).status,404);
- }finally{child.kill();await once(child,'exit');}
+ }finally{const exited=once(child,'exit');child.kill();await exited;}
 });
