@@ -11,5 +11,8 @@ const {title = 'Grafton Resources'} = Astro.props;
     <meta name="description" content="Grafton Resources investor information" />
     <title>{title}</title>
   </head>
-  <body><slot /></body>
+  <body><slot />
+    <!-- Aurox editor selection bridge (inert unless loaded in the editor with ?wf-edit=1) -->
+    <script src="https://aurox-portal.vercel.app/wf-bridge.js" defer></script>
+  </body>
 </html>
