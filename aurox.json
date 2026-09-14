@@ -1,6 +1,11 @@
 {
   "version": 1,
   "pages": [
-    { "title": "Home", "route": "/", "files": ["src/content/home.json", "src/content/about.json"] }
+    { "title": "Home", "route": "/", "files": ["src/content/home.json", "src/content/about.json"] },
+    { "title": "Company", "route": "/company", "files": ["src/content/company.json"] },
+    { "title": "Projects", "route": "/projects", "files": ["src/content/projects.json"] },
+    { "title": "Investors", "route": "/investors", "files": ["src/content/investors.json"] },
+    { "title": "News", "route": "/news", "files": ["src/content/news.json"] },
+    { "title": "Contact", "route": "/contact", "files": ["src/content/contact.json"] }
   ]
 }
